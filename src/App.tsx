@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { CountryType } from "./types";
+import { CountryType, countryInfo } from "./types";
 import { getCountries } from "./Functions/getCountries";
 import { Grid } from "@mui/material";
 import Countries from "./Components/Countries";
+import Country from "./Components/Country";
+import { getCountry } from "./Functions/getCountry";
 
 const App = () => {
   const [countries, setCountries] = useState<CountryType[]>([]);
+  const [selectedCountry, setSelectedCountry] = useState<countryInfo | null>(
+    null
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,9 +25,21 @@ const App = () => {
     void fetchData();
   }, []);
 
+  const onCountry = async (code: string) => {
+    const data = await getCountry(code);
+    if (data) {
+      setSelectedCountry(data);
+    }
+  };
+
   return (
     <Grid container>
-      <Countries countries={countries} />
+      <Grid item xs>
+        <Countries countries={countries} onCountry={onCountry} />
+      </Grid>
+      <Grid item xs>
+        <Country country={selectedCountry} />
+      </Grid>
     </Grid>
   );
 };
