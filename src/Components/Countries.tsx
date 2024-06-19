@@ -8,15 +8,22 @@ interface Props {
 
 const Countries: React.FC<Props> = ({ countries, onCountry }) => {
   return (
-    <Grid container direction="column">
+    <Grid
+      container
+      direction="row"
+      sx={{
+        height: "100vh",
+        overflowX: "hidden",
+      }}
+    >
       {countries.map((country) => (
         <Grid
           item
           key={country.alpha3Code}
           onClick={() => onCountry(country.alpha3Code)}
+          sx={{paddingRight: 50}}
         >
-          <Typography variant="h4"></Typography>
-          {country.name}
+          <Typography variant="h3">{country.name}</Typography>
         </Grid>
       ))}
     </Grid>

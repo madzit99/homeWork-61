@@ -34,7 +34,7 @@ const App = () => {
 
   return (
     <Grid container>
-      <Grid item xs>
+      <Grid item xs sx={{borderRight:"2px solid black", marginRight: "50px" }}>
         <Countries countries={countries} onCountry={onCountry} />
       </Grid>
       <Grid item xs>
